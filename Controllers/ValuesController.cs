@@ -2,25 +2,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GoodsManager.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoodsManager.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class ProductController : Controller
     {
+        List<Product> products = new List<Product>(); 
+
+        public ProductController(){
+            products.Add(new Product(){Id = 1, Name = "Product 1"});
+            products.Add(new Product(){Id = 2, Name = "Product 2"});
+            products.Add(new Product(){Id = 3, Name = "Product 3"});
+            products.Add(new Product(){Id = 4, Name = "Product 4"});
+        }
+
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Product> Get()
         {
-            return new string[] { "value1", "value2" };
+            return products.AsEnumerable();
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Product Get(int id)
         {
-            return "value";
+            return products.SingleOrDefault(x => x.Id == id);
         }
 
         // POST api/values
